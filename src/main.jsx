@@ -5,12 +5,24 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 //Routing
 import authRoutes from "./module/authentication/authRoutes.jsx";
 import backofficeRoutes from "./module/backoffice/backofficeRoutes.jsx";
+import PageNotFound from "./shared/components/PageNotFound.jsx";
 
 const routing = createBrowserRouter([
-  ...authRoutes,
+  {
+    path: "/",
+    children: authRoutes,
+  },
   {
     path: "/backoffice",
     children: backofficeRoutes,
+  },
+  {
+    path: "/backoffice",
+    children: backofficeRoutes,
+  },
+  {
+    path: "*",
+    element: <PageNotFound />,
   },
 ]);
 

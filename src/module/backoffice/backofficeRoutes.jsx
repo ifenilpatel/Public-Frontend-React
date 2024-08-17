@@ -4,6 +4,8 @@ import Designation from "./components/Designation";
 import Users from "./components/Users";
 import Reports from "./components/Reports";
 import Master from "./layout/Master";
+import ProtectedRoute from "../../shared/ProtectedRoute";
+import { Navigate } from "react-router-dom";
 
 const backofficeRoutes = [
   {
@@ -12,23 +14,47 @@ const backofficeRoutes = [
     children: [
       {
         path: "dashboard",
-        element: <Dashboard />,
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "department",
-        element: <Department />,
+        element: (
+          <ProtectedRoute>
+            <Department />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "designation",
-        element: <Designation />,
+        element: (
+          <ProtectedRoute>
+            <Designation />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "users",
-        element: <Users />,
+        element: (
+          <ProtectedRoute>
+            <Users />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "reports",
-        element: <Reports />,
+        element: (
+          <ProtectedRoute>
+            <Reports />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "",
+        element: <Navigate to="dashboard" />,
       },
     ],
   },

@@ -1,7 +1,19 @@
 import React from "react";
 
 const Footer = () => {
-  return <h1>Footer Page</h1>;
+  return (
+    <>
+      <footer id="footer" className="footer">
+        <div className="copyright">
+          © Copyright
+          <strong>
+            <span> Fenil Patel</span>
+          </strong>
+          . All Rights Reserved
+        </div>
+      </footer>
+    </>
+  );
 };
 
 export default Footer;
