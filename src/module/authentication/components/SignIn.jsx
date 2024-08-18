@@ -1,19 +1,23 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
-  const init = { email: "", password: "" };
+  const navigate = useNavigate();
+
+  const init = { email: "", password: "", rememberMe: false };
   const [formValues, setFormValues] = useState(init);
 
-  const handleChange = (e) => {
-    console.log(e);
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+  const handleChange = (event) => {
+    const target = event.target;
+    if (target.type == "text" || target.type == "password" || target.type == "email") setFormValues({ ...formValues, [target.name]: target.value });
+    if (target.type == "checkbox") setFormValues({ ...formValues, [target.name]: target.checked });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formValues);
+    // Navigate programmatically
+    navigate("/register");
   };
 
   return (
@@ -25,17 +29,24 @@ const SignIn = () => {
             <p className="text-center small">Enter your username & password to login</p>
           </div>
 
-          <form className="row g-3" onSubmit={handleSubmit}>
+          <form className="row g-3" autoComplete="off" onSubmit={handleSubmit}>
             <div className="col-12">
               <label className="form-label">Email</label>
-              <div className="input-group ">
-                <input type="text" className="form-control" name="email" value={formValues.email} onChange={handleChange} required />
-              </div>
+              <input type="email" className="form-control" name="email" value={formValues.email} onChange={handleChange} />
             </div>
 
             <div className="col-12">
               <label className="form-label">Password</label>
-              <input type="password" className="form-control" name="password" value={formValues.password} onChange={handleChange} required />
+              <input type="password" className="form-control" name="password" value={formValues.password} onChange={handleChange} />
+            </div>
+
+            <div className="col-12">
+              <div className="form-check">
+                <input className="form-check-input" type="checkbox" name="rememberMe" value={formValues.rememberMe} onChange={handleChange} id="rememberMe" />
+                <label className="form-check-label" htmlFor="rememberMe">
+                  Remember me
+                </label>
+              </div>
             </div>
 
             <div className="col-12">
