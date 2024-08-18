@@ -1,7 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 
-// npm i react-spinners
-
 // shared
 import Breadcrumb from "../../../shared/components/Breadcrumb";
 
