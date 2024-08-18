@@ -1,7 +1,8 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 
 // shared
 import Breadcrumb from "../../../shared/components/Breadcrumb";
+import demoContext from "../../context/demo/demoContext";
 
 const Department = () => {
   const [loading, setLoading] = useState(true);
@@ -9,7 +10,14 @@ const Department = () => {
   const modalRef1 = useRef(null);
   const modalRef2 = useRef(null);
 
+  const data = useContext(demoContext);
+
+  console.log(data.state.name);
+  console.log(data.state.mobile);
+
   useEffect(() => {
+    data.update();
+
     // Set a timer for 5 seconds, then stop loading
     const timer = setTimeout(() => {
       setLoading(false);
