@@ -17,7 +17,7 @@ const SignIn = () => {
     e.preventDefault();
     console.log(formValues);
     // Navigate programmatically
-    navigate("/register");
+    navigate("/backoffice");
   };
 
   return (
@@ -32,12 +32,12 @@ const SignIn = () => {
           <form className="row g-3" autoComplete="off" onSubmit={handleSubmit}>
             <div className="col-12">
               <label className="form-label">Email</label>
-              <input type="email" className="form-control" name="email" value={formValues.email} onChange={handleChange} />
+              <input type="email" className="form-control" name="email" value={formValues.email} onChange={handleChange} required />
             </div>
 
             <div className="col-12">
               <label className="form-label">Password</label>
-              <input type="password" className="form-control" name="password" value={formValues.password} onChange={handleChange} />
+              <input type="password" className="form-control" name="password" value={formValues.password} onChange={handleChange} required />
             </div>
 
             <div className="col-12">
