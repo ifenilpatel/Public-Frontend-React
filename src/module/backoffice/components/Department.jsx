@@ -1,11 +1,25 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
+
+// npm i react-spinners
 
 // shared
 import Breadcrumb from "../../../shared/components/Breadcrumb";
 
 const Department = () => {
+  const [loading, setLoading] = useState(true);
+
   const modalRef1 = useRef(null);
   const modalRef2 = useRef(null);
+
+  useEffect(() => {
+    // Set a timer for 5 seconds, then stop loading
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+
+    // Cleanup the timer if the component unmounts before the timeout
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleModal = (modalRef, action) => {
     const modalElement = modalRef.current;
@@ -48,6 +62,15 @@ const Department = () => {
       title: "Department 5",
     },
   ];
+
+  if (loading) {
+    return (
+      <div style={styles.loaderContainer}>
+        <div style={styles.loaderText}>Loading....</div>
+        {/* Replace with a spinner or an image if desired */}
+      </div>
+    );
+  }
 
   return (
     <>
@@ -126,6 +149,27 @@ const Department = () => {
       </div>
     </>
   );
+};
+
+const styles = {
+  loaderContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+    backgroundColor: "#f0f0f0",
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 9999,
+  },
+  loaderText: {
+    fontSize: "24px",
+    color: "#333",
+    // Add a spinner or image here if desired
+  },
 };
 
 export default Department;
