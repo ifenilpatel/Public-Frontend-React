@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const Register = () => {
+  const [imagePreview, setImagePreview] = useState(null);
+  const [file, setFile] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -11,6 +14,31 @@ const Register = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+    // Create a new FormData object
+    const formData = new FormData();
+
+    // Append form fields to the FormData object
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("username", data.username);
+    formData.append("password", data.password);
+    formData.append("acceptTerms", data.acceptTerms);
+
+    // Append the image file to the FormData object
+    if (file) {
+      formData.append("profilePicture", file);
+    }
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -23,6 +51,16 @@ const Register = () => {
           </div>
 
           <form className="row g-3" autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+            <div className="col-12">
+              <label className="form-label">Profile Picture</label>
+              <input type="file" className="form-control" accept="image/*" onChange={handleImageChange} />
+              {imagePreview && (
+                <div className="mt-2">
+                  <img src={imagePreview} alt="Preview" style={{ maxWidth: "100%", maxHeight: "200px", objectFit: "cover" }} />
+                </div>
+              )}
+            </div>
+
             <div className="col-12">
               <label className="form-label">Your Name</label>
               <input type="text" className="form-control" {...register("name", { required: "Name is required" })} />
